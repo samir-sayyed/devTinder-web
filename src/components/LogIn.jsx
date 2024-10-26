@@ -4,11 +4,13 @@ import { BASE_URL } from "../utils/constants.js";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.js";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LogIn = () => {
   const [email, setEmail] = useState("samir@gmail.com");
   const [password, setPassword] = useState("Samir@123");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -26,10 +28,16 @@ const LogIn = () => {
         },
         withCredentials: true,
       });
-      dispatch(addUser(res.data.user));
-      navigate("/");
+      console.log(res);
+      if(res.status == 200) {
+        dispatch(addUser(res.data.user));
+        navigate("/");
+      }else {
+        alert(res.data.message);
+      }
     } catch (error) {
       console.log(error);
+      setError(error?.response?.data ?? "Something went wrong");
     }
   };
 
@@ -78,6 +86,25 @@ const LogIn = () => {
             />
           </label>
 
+          <div className="form-control">
+           <p className="text-red-500">{error}</p>
+          </div>
+
+          <label className="label">
+            <Link
+              to="/forgotPassword"
+              className="label-text-alt link link-hover opacity-70"
+            >
+              Forgot password?
+            </Link>
+          </label>
+
+          <p className="text-sm opacity-70">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-blue-500">
+              Sign Up
+            </Link>
+          </p>
           <div className="card-actions justify-center mt-4">
             <button className="btn btn-primary w-full" onClick={logIn}>
               Login
