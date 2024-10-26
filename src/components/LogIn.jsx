@@ -5,14 +5,20 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LogIn = () => {
   const [email, setEmail] = useState("samir@gmail.com");
   const [password, setPassword] = useState("Samir@123");
+  const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const dispatch = useDispatch();
+
+  if (user.user != null) {
+    navigate("/");
+  }
 
   const logIn = async () => {
     try {
@@ -28,7 +34,6 @@ const LogIn = () => {
         },
         withCredentials: true,
       });
-      console.log(res);
       if(res.status == 200) {
         dispatch(addUser(res.data.user));
         navigate("/");
@@ -36,7 +41,6 @@ const LogIn = () => {
         alert(res.data.message);
       }
     } catch (error) {
-      console.log(error);
       setError(error?.response?.data ?? "Something went wrong");
     }
   };

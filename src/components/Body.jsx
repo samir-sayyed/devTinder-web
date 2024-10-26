@@ -20,8 +20,6 @@ const Body = () => {
         url: BASE_URL + "/profile",
         withCredentials: true,
       });
-
-      console.log(res.data);
       dispatch(addUser(res.data));
     } catch (err) {
       if (err.status == 401) {
