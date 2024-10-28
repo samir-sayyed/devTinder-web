@@ -82,7 +82,7 @@ const LogIn = () => {
               />
             </svg>
             <input
-              type="password"
+              type="text"
               className="grow"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
