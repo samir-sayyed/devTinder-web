@@ -30,6 +30,11 @@ const Navbar = () => {
         <div className="flex-1">
           <Link to="/" className="btn btn-ghost text-xl">DevTinder</Link>
         </div>
+        {user?.user &&
+             <div className="flex-none">
+             <Link to="/connections" className="btn btn-ghost">Connections</Link>
+           </div>
+        }
         {
           user?.user &&
           <div className="flex-none gap-2">
