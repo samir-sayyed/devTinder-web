@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { removeUser } from "../utils/userSlice";
 import { BASE_URL } from "../utils/constants";
 
+
 const Navbar = () => {
 
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const Navbar = () => {
                    Profile
                  </Link>
                </li>
-               <li><a>Settings</a></li>
+               <li><Link to="/requests">Requests</Link></li>
                <li><a
                  onClick={logoutUser}>Logout</a></li>
              </ul>

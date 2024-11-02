@@ -31,7 +31,7 @@ const Connections = () => {
       </div>
     );
   }
-  return <div className="flex justify-center">
+  return <div className="flex flex-col items-center">
     {
     connections && 
     <li>
@@ -39,8 +39,6 @@ const Connections = () => {
         <ConnectionCard key={user._id} user={user} />
       ))}
     </li>
-   
-    
     }
     </div>;
 };
