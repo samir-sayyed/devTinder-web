@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
+import { removeRequest } from "../utils/requestsSlice";
 
 const ConnectionCard = ({ user, isRequests, requestId }) => {
   const {_id, firstName, lastName, age, gender, photo, about } = user;

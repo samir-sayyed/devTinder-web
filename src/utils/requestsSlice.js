@@ -12,6 +12,7 @@ const requestsSlice = createSlice({
         removeRequest: (state, action) => {
             const index = state.requests.findIndex((request) => request._id === action.payload);
             state.requests.splice(index, 1);
+            state.requests = [...state.requests];
         }
     }
 })

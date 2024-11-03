@@ -1,7 +1,30 @@
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
+import { removeFeed } from "../utils/feedSlice";
+
 const UserCard = ({ user, hideButtons }) => {
   if (!user) return null;
 
-  const { firstName, lastName, age, gender, photo, about } = user;
+  const { _id, firstName, lastName, age, gender, photo, about } = user;
+
+  const dispatch = useDispatch();
+
+  const acceptIgnoreConnection = async (status) => {
+    try {
+      await axios({
+        method: "post",
+        url: BASE_URL + "/request/send/" + status + "/" + _id,
+        data: {
+          userId: user._id,
+        },
+        withCredentials: true,
+      });
+        dispatch(removeFeed(_id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden max-w-l">
@@ -46,11 +69,13 @@ const UserCard = ({ user, hideButtons }) => {
         {!hideButtons && (
           <div className="flex gap-2 justify-end">
             <button 
+              onClick={() => acceptIgnoreConnection("ignored")}
               className="px-4 py-1.5 text-sm rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
             >
               Pass
             </button>
             <button 
+              onClick={() => acceptIgnoreConnection("interested")}
               className="px-4 py-1.5 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors"
             >
               Interested
